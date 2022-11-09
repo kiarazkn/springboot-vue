@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.springboot.mapper.NewstypeMapper">
+
+    <resultMap id="newsWithType" type="Newstype">
+        <id property="id" column="id" />
+        <result property="typename" column="typename" />
+        <collection property="newsList" ofType="News">
+            <id property="id" column="id" />
+            <result property="typeid" column="typeid" />
+        </collection>
+    </resultMap>
+
+    <select id="selectNewsByTypeid" resultMap="newsWithType" parameterType="Integer">
+        SELECT t_newstype.name
+        FROM t_news student,t_newstype t_newstype
+        WHERE t_news.typeid=t_newstype.id and t_newstype.id=#{id}
+    </select>
+
+</mapper>
